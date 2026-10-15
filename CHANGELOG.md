@@ -14,6 +14,11 @@ All notable changes to `parse-bench` are recorded here. The format follows
 ## [Unreleased]
 
 ### Fixed
+- Layout attribution no longer crashes on layout rules without an `ro_index`.
+  `LayoutDetectionEvaluator` dumps rules with `ro_index=None`, which
+  `parse_gt_elements` kept, so the reading-order sort raised `TypeError` and
+  the page was dropped. A missing or null `ro_index` now reads as `0`, as an
+  absent key already did.
 - `diagram_graph` rules no longer crash when their `reference_image` resolves.
   The rule reached for `rules_image.thumbnail_data_uri`, a module that only
   exists in the internal harness, so scoring a diagram with a reference render
