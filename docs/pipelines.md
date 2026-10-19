@@ -348,6 +348,12 @@ These pipelines require you to deploy the model on your own infrastructure (e.g.
 | `nemotron_omni_30b_vllm` | Nemotron-3-Nano-Omni 30B-A3B Reasoning, thinking disabled | `NEMOTRON_OMNI_SERVER_URL` |
 | `nemotron_omni_30b_vllm_thinking` | Nemotron-3-Nano-Omni 30B-A3B Reasoning, thinking enabled | `NEMOTRON_OMNI_SERVER_URL` |
 
+### Nemotron 3.5 Parse
+
+| Pipeline | Description | Env Var |
+|---|---|---|
+| `nemotron_parse_3_5_sdk` | Nemotron 3.5 Parse SDK server (triple pass: full page + detection + Table/Chart crops; layout) | `NEMOTRON_PARSE_3_5_SERVER_URL` |
+
 ### Surya OCR 2
 
 | Pipeline | Description | Env Var |

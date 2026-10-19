@@ -27,6 +27,11 @@ All notable changes to `parse-bench` are recorded here. The format follows
   is what lets the reference resolve in the first place.
 
 ### Added
+- `nemotron_parse_3_5_sdk` pipeline and `nemotron_parse_3_5` provider for
+  Nemotron 3.5 Parse, driven by an SDK server that runs the model repository's
+  triple-pass pipeline (`NEMOTRON_PARSE_3_5_SERVER_URL`). A dedicated layout
+  adapter reads its normalized layout boxes; the LlamaParse fallback rejected
+  its labels.
 - `register_reference_thumbnailer` (exported from `parse_bench.extensions`):
   how a rule's `reference_image` is rendered into the detailed report. parse-bench
   keeps no image stack in its core dependencies, so it ships no default and
