@@ -50,6 +50,7 @@ _PROVIDER_MODULES = [
     "mineru_diffusion",
     "mistral_ocr",
     "nemotron_omni",
+    "nemotron_parse_3_5",
     "nutrient_dws",
     "openai",
     "ovisocr2",

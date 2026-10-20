@@ -2815,6 +2815,25 @@ def register_parse_pipelines(register_fn) -> None:  # type: ignore[no-untyped-de
     )
 
     # =========================================================================
+    # Nemotron 3.5 Parse (nvidia/Nemotron-3.5-Parse, 0.63B RADIO + mBART)
+    # Model repository's nemotron_parse triple pass (full page + detection +
+    # Table/Chart crops, region union) on a vLLM backend. Markdown with HTML
+    # tables + classed per-block layout boxes.
+    # =========================================================================
+
+    register_fn(
+        PipelineSpec(
+            pipeline_name="nemotron_parse_3_5_sdk",
+            provider_name="nemotron_parse_3_5",
+            product_type=ProductType.PARSE,
+            config={
+                "server_url": "",  # Set via NEMOTRON_PARSE_3_5_SERVER_URL or override
+                "mode": "triple",
+            },
+        )
+    )
+
+    # =========================================================================
     # Databricks ai_parse_document
     # =========================================================================
 

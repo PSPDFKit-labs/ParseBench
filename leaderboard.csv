@@ -109,6 +109,7 @@ TeleOCR,VLM - Open Weight,58.67,72.74,9.97,85.39,45.13,80.14,,,,,,StarDoc-AI/Tel
 Gemma-4-26B-A4B-it,VLM - Open Weight,58.5,70,14.2,83.8,65.1,59.2,,,,,,google/gemma-4-26B-A4B-it
 Nemotron-3-Nano-Omni-30B-A3B (Thinking),VLM - Open Weight,48.51,70.44,31.47,80.97,59.69,0,,,,,,nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16
 LightOnOCR-2-1B,VLM - Open Weight,48,75.5,13.5,87.8,63.2,0,,,,,,lightonai/LightOnOCR-2-1B
+Nemotron-3.5-Parse,VLM - Open Weight,75.2,84.67,64.4,87.96,68.28,70.67,,,,,,nvidia/Nemotron-3.5-Parse
 LightOnOCR-3-4B,VLM - Open Weight,75.1,83.8,66.1,89.9,67.6,68.3,,,,,,lightonai/LightOnOCR-3-4B
 LightOnOCR-3-0.8B,VLM - Open Weight,74.6,84.5,64.7,88.9,66.7,68.2,,,,,,lightonai/LightOnOCR-3-0.8B
 LightOnOCR-3-1B,VLM - Open Weight,71.4,84.8,57.3,88.6,64.5,61.7,,,,,,lightonai/LightOnOCR-3-1B
