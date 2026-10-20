@@ -8,6 +8,7 @@ from typing import Any
 import pytest
 
 from parse_bench.evaluation.layout_adapters.registry import create_layout_adapter_for_result
+from parse_bench.evaluation.layout_label_mappers import project_layout_predictions
 from parse_bench.inference.pipelines import get_pipeline
 from parse_bench.inference.providers.parse.nemotron_parse_3_5 import NemotronParse35Provider
 from parse_bench.schemas.pipeline_io import InferenceRequest
@@ -19,8 +20,10 @@ def test_layout_reaches_the_attribution_scorer_with_normalized_boxes_and_aliased
 ) -> None:
     """Catches the pipeline falling back to the LlamaParse layout adapter (which read the
     normalized boxes as pixels, so every attribution box collapsed to ~0 and attribution
-    scored 0), Chart/TOC dropped to Text as unknown labels, and one slightly out-of-frame
-    coordinate (>1.0) flipping the whole page into pixel mode."""
+    scored 0), labels reaching the evaluator's label projection as integer IDs no mapper
+    resolves (UnknownRawLayoutLabelError on every document), Chart/TOC dropped to Text as
+    unknown labels, and one slightly out-of-frame coordinate (>1.0) flipping the whole page
+    into pixel mode."""
     page = {
         "status": "success",
         "markdown": "# Title\n\nchart table",
@@ -52,5 +55,11 @@ def test_layout_reaches_the_attribution_scorer_with_normalized_boxes_and_aliased
     assert toc.bbox.label == "Document Index"
 
     adapter = create_layout_adapter_for_result(result)
-    blocks = adapter.to_attribution_blocks(adapter.to_layout_output(result), page_number=1)
+    layout_output = adapter.to_layout_output(result)
+    blocks = adapter.to_attribution_blocks(layout_output, page_number=1)
     assert [block.bbox_xyxy for block in blocks][0] == pytest.approx([0.1, 0.05, 0.6, 0.1])
+
+    projected = project_layout_predictions(
+        result, layout_output, evaluation_view="canonical", target_ontology="canonical"
+    )
+    assert [p["class_name"] for p in projected] == ["Title", "Picture", "Document Index"]

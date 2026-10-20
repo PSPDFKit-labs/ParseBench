@@ -1447,13 +1447,16 @@ class DeepSeekLayoutAdapter(LayoutAdapter):
 
 
 @register_layout_adapter("nemotron_parse_3_5", priority=90)
-class NemotronParse35LayoutAdapter(LayoutAdapter):
-    """Adapter that extracts LayoutOutput from Nemotron 3.5 Parse ParseOutput.layout_pages.
+class NemotronParse35LayoutAdapter(HunyuanOcrLayoutAdapter):
+    """Project Nemotron 3.5 Parse ``layout_pages`` like HunyuanOCR: Canonical17 labels kept as strings.
 
-    The provider fills ``layout_pages`` with Canonical17 labels, normalized boxes
-    and per-block content. Resolved by provider key; without it, attribution
-    falls back to the LlamaParse adapter, which reads normalized boxes as pixels.
+    Resolved by provider key only. Without it, attribution falls back to the
+    LlamaParse adapter, which rejects the model's labels.
     """
+
+    @classmethod
+    def matches(cls, inference_result: InferenceResult) -> bool:
+        return False
 
     def to_layout_output(
         self,
@@ -1461,11 +1464,8 @@ class NemotronParse35LayoutAdapter(LayoutAdapter):
         *,
         page_filter: int | None = None,
     ) -> LayoutOutput:
-        return _parse_with_layout_to_layout_output(
-            inference_result,
-            model=LayoutDetectionModel.OPENAI_COMPATIBLE_VLM_LAYOUT,
-            page_filter=page_filter,
-        )
+        layout_output = super().to_layout_output(inference_result, page_filter=page_filter)
+        return layout_output.model_copy(update={"model": LayoutDetectionModel.NEMOTRON_PARSE_LAYOUT})
 
 
 @register_layout_adapter("openai", priority=90)

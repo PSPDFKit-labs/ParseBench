@@ -29,9 +29,11 @@ All notable changes to `parse-bench` are recorded here. The format follows
 ### Added
 - `nemotron_parse_3_5_sdk` pipeline and `nemotron_parse_3_5` provider for
   Nemotron 3.5 Parse, driven by an SDK server that runs the model repository's
-  triple-pass pipeline (`NEMOTRON_PARSE_3_5_SERVER_URL`). A dedicated layout
-  adapter reads its normalized layout boxes; the LlamaParse fallback rejected
-  its labels.
+  triple-pass pipeline (`NEMOTRON_PARSE_3_5_SERVER_URL`). Its layout adapter
+  keeps the Canonical17 label strings under the new
+  `LayoutDetectionModel.NEMOTRON_PARSE_LAYOUT` (with a `LAYOUT_MODEL_INFO`
+  entry), and a passthrough label mapper resolves them, so Visual Grounding is
+  scored instead of raising `UnknownRawLayoutLabelError`.
 - `register_reference_thumbnailer` (exported from `parse_bench.extensions`):
   how a rule's `reference_image` is rendered into the detailed report. parse-bench
   keeps no image stack in its core dependencies, so it ships no default and
