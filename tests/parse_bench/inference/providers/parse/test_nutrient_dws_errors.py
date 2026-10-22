@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import unittest
 from pathlib import Path
@@ -100,3 +101,26 @@ class TestPricing(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestInstructions(unittest.TestCase):
+    """The options each mode sends."""
+
+    def test_spatial_modes_ask_for_words_and_inline_formatting(self) -> None:
+        for mode in ("structure", "understand", "agentic"):
+            provider = NutrientDwsProvider("nutrient_dws", {"mode": mode, "api_key": "test"})
+            self.assertEqual(
+                json.loads(provider._instructions()),
+                {
+                    "mode": mode,
+                    "output": {
+                        "formats": ["markdown", "spatial"],
+                        "includeWords": True,
+                        "enableInlineFormatting": True,
+                    },
+                },
+            )
+
+    def test_text_mode_sends_only_the_markdown_format(self) -> None:
+        provider = NutrientDwsProvider("nutrient_dws", {"mode": "text", "api_key": "test"})
+        self.assertEqual(json.loads(provider._instructions()), {"mode": "text", "output": {"format": "markdown"}})

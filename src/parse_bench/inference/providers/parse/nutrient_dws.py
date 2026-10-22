@@ -1,7 +1,7 @@
 """Provider for Nutrient DWS Data Extraction PARSE.
 
 Only the options in the published contract are sent (``format``/``formats``,
-``includeWords``). Unknown options are accepted and ignored rather than rejected,
+``includeWords``, ``enableInlineFormatting``). Unknown options are accepted and ignored rather than rejected,
 and some combinations degrade the markdown silently.
 
 Credits are charged per page. ``usage.data_extraction_credits.cost`` is recorded
@@ -171,11 +171,14 @@ class NutrientDwsProvider(Provider):
         # `enableSemanticBlockFormatting` / `includeHeadersAndFooters` are not in
         # the contract and that combination strips chart tables and interleaves
         # running headers into the body. `includeWords` defaults to false and
-        # carries the style flags the formatting rules score.
+        # carries the style flags the formatting rules score. `enableInlineFormatting`
+        # defaults to false and writes those styles into `output.markdown`, the
+        # body when `body_source` is "hosted"; the graph body styles itself.
         if self._spatial:
             output: dict[str, Any] = {
                 "formats": ["markdown", "spatial"],
                 "includeWords": True,
+                "enableInlineFormatting": True,
             }
         else:
             output = {"format": "markdown"}
