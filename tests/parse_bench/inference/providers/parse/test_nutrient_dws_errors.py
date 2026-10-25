@@ -99,10 +99,6 @@ class TestPricing(unittest.TestCase):
         self.assertEqual(self._provider(credit_rate_usd=0.0012).credit_rate_usd, 0.0012)
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 class TestInstructions(unittest.TestCase):
     """The options each mode sends."""
 
@@ -124,3 +120,7 @@ class TestInstructions(unittest.TestCase):
     def test_text_mode_sends_only_the_markdown_format(self) -> None:
         provider = NutrientDwsProvider("nutrient_dws", {"mode": "text", "api_key": "test"})
         self.assertEqual(json.loads(provider._instructions()), {"mode": "text", "output": {"format": "markdown"}})
+
+
+if __name__ == "__main__":
+    unittest.main()

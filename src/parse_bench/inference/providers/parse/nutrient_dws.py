@@ -1,8 +1,8 @@
 """Provider for Nutrient DWS Data Extraction PARSE.
 
-Only the options in the published contract are sent (``format``/``formats``,
-``includeWords``, ``enableInlineFormatting``). Unknown options are accepted and ignored rather than rejected,
-and some combinations degrade the markdown silently.
+Only options from the published contract are sent (``format``/``formats``,
+``includeWords``, ``enableInlineFormatting``). Unknown options are accepted and
+ignored rather than rejected.
 
 Credits are charged per page. ``usage.data_extraction_credits.cost`` is recorded
 on ``raw_output`` as ``credits_used``; its sibling ``remainingCredits`` is not a
@@ -167,13 +167,13 @@ class NutrientDwsProvider(Provider):
     def _instructions(self) -> str:
         # `text` mode takes the singular `format`; the spatial modes take
         # `formats` and additionally return `output.elements`.
-        # Contract options only. `useHtmlTables` /
-        # `enableSemanticBlockFormatting` / `includeHeadersAndFooters` are not in
-        # the contract and that combination strips chart tables and interleaves
-        # running headers into the body. `includeWords` defaults to false and
-        # carries the style flags the formatting rules score. `enableInlineFormatting`
-        # defaults to false and writes those styles into `output.markdown`, the
-        # body when `body_source` is "hosted"; the graph body styles itself.
+        # `includeWords` defaults to false and carries the style flags the
+        # formatting rules score. `enableInlineFormatting` defaults to false and
+        # writes those styles into `output.markdown` (the body when `body_source`
+        # is "hosted"); the graph body styles itself from the word flags. The
+        # other Markdown switches (`useHtmlTables`, `enableSemanticBlockFormatting`,
+        # `includeHeadersAndFooters`, `extractWordsFromPictures`) keep the defaults
+        # DWS documents and pins for every Markdown request, so they aren't sent.
         if self._spatial:
             output: dict[str, Any] = {
                 "formats": ["markdown", "spatial"],
