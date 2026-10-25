@@ -117,6 +117,30 @@ class TestInstructions(unittest.TestCase):
                 },
             )
 
+    def test_hosted_body_also_asks_for_headers_footers_and_picture_words(self) -> None:
+        for mode in ("structure", "understand", "agentic"):
+            provider = NutrientDwsProvider("nutrient_dws", {"mode": mode, "body_source": "hosted", "api_key": "test"})
+            self.assertEqual(
+                json.loads(provider._instructions()),
+                {
+                    "mode": mode,
+                    "output": {
+                        "formats": ["markdown", "spatial"],
+                        "includeWords": True,
+                        "enableInlineFormatting": True,
+                        "includeHeadersAndFooters": True,
+                        "extractWordsFromPictures": True,
+                    },
+                },
+            )
+
+    def test_hosted_body_from_environment_also_asks_for_them(self) -> None:
+        with mock.patch.dict(os.environ, {"NUTRIENT_DWS_BODY_SOURCE": "hosted"}):
+            provider = NutrientDwsProvider("nutrient_dws", {"mode": "understand", "api_key": "test"})
+        output = json.loads(provider._instructions())["output"]
+        self.assertIs(output["includeHeadersAndFooters"], True)
+        self.assertIs(output["extractWordsFromPictures"], True)
+
     def test_text_mode_sends_only_the_markdown_format(self) -> None:
         provider = NutrientDwsProvider("nutrient_dws", {"mode": "text", "api_key": "test"})
         self.assertEqual(json.loads(provider._instructions()), {"mode": "text", "output": {"format": "markdown"}})
