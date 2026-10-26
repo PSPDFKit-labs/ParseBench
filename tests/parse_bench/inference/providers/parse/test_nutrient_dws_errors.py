@@ -150,5 +150,21 @@ class TestInstructions(unittest.TestCase):
         self.assertEqual(json.loads(provider._instructions()), {"mode": "text", "output": {"format": "markdown"}})
 
 
+class TestChartCaption(unittest.TestCase):
+    """A chart table's caption comes from the page, never from the generated summary."""
+
+    _TABLE = "<table><tr><th>Year</th><th>Sales</th></tr><tr><td>2024</td><td>12</td></tr></table>"
+
+    def test_printed_caption_is_attached(self) -> None:
+        el = {"type": "chart", "htmlTable": self._TABLE, "captionIds": ["c1"], "summary": "Bar chart of sales"}
+        html = NutrientDwsProvider._chart_table_html(el, {"c1": {"text": "Figure 3. Sales by year"}})
+        self.assertIn("<caption>Figure 3. Sales by year</caption>", html)
+        self.assertNotIn("Bar chart of sales", html)
+
+    def test_summary_is_not_used_without_a_printed_caption(self) -> None:
+        el = {"type": "chart", "htmlTable": self._TABLE, "summary": "Bar chart of sales"}
+        self.assertEqual(NutrientDwsProvider._chart_table_html(el, {}), self._TABLE)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -428,11 +428,8 @@ class NutrientDwsProvider(Provider):
             for text in (((by_id.get(cid) or {}).get("text") or "").strip() for cid in (el.get("captionIds") or []))
             if text
         )
-        # `summary` is the VLM's own one-line description ("Horizontal bar chart
-        # comparing ..."). It carries the axis/series wording that chart rules match
-        # on, so it stands in when the document has no caption element of its own.
-        if not caption:
-            caption = (el.get("summary") or "").strip()
+        # Only text printed on the page becomes a caption. The chart's `summary` is
+        # generated text, not something the document shows, so it is never used.
         if not caption or not table.startswith("<table"):
             return table
         head, rest = table[: len("<table")], table[len("<table") :]
