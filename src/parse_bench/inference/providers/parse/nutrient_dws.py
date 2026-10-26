@@ -127,11 +127,11 @@ class NutrientDwsProvider(Provider):
         self._mode = mode
         self._spatial = mode in _SPATIAL_MODES
 
-        # Graded body: "graph" renders from output.elements with inline styling
-        # from word flags (the default; word flags are only consumed here).
-        # "hosted" grades output.markdown verbatim.
+        # Graded body: "hosted" (the default) grades the product's own
+        # output.markdown. "graph" renders the body from output.elements instead,
+        # with inline styling from the word flags.
         body_source = str(
-            os.environ.get("NUTRIENT_DWS_BODY_SOURCE") or self.base_config.get("body_source", "graph")
+            os.environ.get("NUTRIENT_DWS_BODY_SOURCE") or self.base_config.get("body_source", "hosted")
         ).lower()
         if body_source not in ("graph", "hosted"):
             raise ProviderConfigError(f"body_source must be 'graph' or 'hosted', got '{body_source}'")
