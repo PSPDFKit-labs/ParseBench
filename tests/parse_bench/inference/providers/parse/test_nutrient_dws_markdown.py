@@ -7,7 +7,9 @@ from parse_bench.inference.providers.parse.nutrient_dws import NutrientDwsProvid
 
 class TestInlineStyleMarkdown(unittest.TestCase):
     def setUp(self) -> None:
-        self.provider = NutrientDwsProvider("nutrient_dws", {"mode": "agentic", "api_key": "test"})
+        self.provider = NutrientDwsProvider(
+            "nutrient_dws", {"mode": "agentic", "body_source": "graph", "api_key": "test"}
+        )
 
     def test_section_heading_preserves_underlined_word_run(self) -> None:
         element = {
