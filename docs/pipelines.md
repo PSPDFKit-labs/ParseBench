@@ -376,6 +376,12 @@ These pipelines require you to deploy the model on your own infrastructure (e.g.
 |---|---|---|
 | `nemotron_parse_3_5_sdk` | Nemotron 3.5 Parse SDK server (triple pass: full page + detection + Table/Chart crops; layout) | `NEMOTRON_PARSE_3_5_SERVER_URL` |
 
+### Unlimited-OCR 2
+
+| Pipeline | Description | Env Var |
+|---|---|---|
+| `unlimitedocr2` | Unlimited-OCR 2 on its official SGLang server (whole document per request; layout) | `UNLIMITEDOCR2_SERVER_URL` |
+
 ### Surya OCR 2
 
 | Pipeline | Description | Env Var |
