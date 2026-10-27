@@ -2379,6 +2379,22 @@ def register_parse_pipelines(register_fn) -> None:  # type: ignore[no-untyped-de
         )
     )
 
+    # OpenAI GPT-6.1 Terra - Parse with Layout File
+    for _terra_name_effort, _terra_effort in (("low", "low"), ("med", "medium")):
+        register_fn(
+            PipelineSpec(
+                pipeline_name=f"openai_gpt_6_1_terra_reasoning_{_terra_name_effort}_parse_with_layout_file",
+                provider_name="openai",
+                product_type=ProductType.PARSE,
+                config={
+                    "model": "gpt-6.1-terra",
+                    "max_tokens": 32768,
+                    "mode": "parse_with_layout_file",
+                    "reasoning_effort": _terra_effort,
+                },
+            )
+        )
+
     # OpenAI GPT-5.4 Nano - Parse with Layout
     register_fn(
         PipelineSpec(

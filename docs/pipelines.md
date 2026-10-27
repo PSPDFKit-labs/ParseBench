@@ -61,6 +61,8 @@ uv run parse-bench run upstage_dpe_v2 --test --max_concurrent 2
 | Pipeline | Description | Env Var |
 |---|---|---|
 | `openai_gpt_6_1_sol_reasoning_low_parse_with_layout_file` | GPT-6.1 Sol, low reasoning + layout, PDF file mode | `OPENAI_API_KEY` |
+| `openai_gpt_6_1_terra_reasoning_low_parse_with_layout_file` | GPT-6.1 Terra, low reasoning + layout, PDF file mode | `OPENAI_API_KEY` |
+| `openai_gpt_6_1_terra_reasoning_med_parse_with_layout_file` | GPT-6.1 Terra, medium reasoning + layout, PDF file mode | `OPENAI_API_KEY` |
 | `openai_gpt5_mini_reasoning_medium_parse` | GPT-5 Mini, medium reasoning, image mode | `OPENAI_API_KEY` |
 | `openai_gpt5_mini_reasoning_medium_parse_file` | GPT-5 Mini, medium reasoning, PDF file mode | `OPENAI_API_KEY` |
 | `openai_gpt5_mini_reasoning_minimal_parse` | GPT-5 Mini, minimal reasoning | `OPENAI_API_KEY` |
