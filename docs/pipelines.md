@@ -376,6 +376,12 @@ These pipelines require you to deploy the model on your own infrastructure (e.g.
 |---|---|---|
 | `nemotron_parse_3_5_sdk` | Nemotron 3.5 Parse SDK server (triple pass: full page + detection + Table/Chart crops; layout) | `NEMOTRON_PARSE_3_5_SERVER_URL` |
 
+### MiniCPM-OCR 1.0
+
+| Pipeline | Description | Env Var |
+|---|---|---|
+| `minicpm_ocr_sdk` | MiniCPM-OCR 1.0 `minicpmvocr` SDK server (PP-DocLayoutV3 regions recognized per label; layout) | `MINICPM_OCR_SERVER_URL` |
+
 ### Surya OCR 2
 
 | Pipeline | Description | Env Var |
