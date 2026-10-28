@@ -34,6 +34,10 @@ All notable changes to `parse-bench` are recorded here. The format follows
   is what lets the reference resolve in the first place.
 
 ### Added
+- `unlimitedocr2` pipeline and provider for Unlimited-OCR 2
+  (`UNLIMITEDOCR2_SERVER_URL`). Converts the model's layout-block output with
+  Baidu's official converter (vendored) and scores layout through
+  `LayoutDetectionModel.UNLIMITED_OCR_2_LAYOUT`.
 - `nemotron_parse_3_5_sdk` pipeline and `nemotron_parse_3_5` provider for
   Nemotron 3.5 Parse, driven by an SDK server that runs the model repository's
   triple-pass pipeline (`NEMOTRON_PARSE_3_5_SERVER_URL`). Its layout adapter
