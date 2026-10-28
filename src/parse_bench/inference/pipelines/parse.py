@@ -2879,6 +2879,24 @@ def register_parse_pipelines(register_fn) -> None:  # type: ignore[no-untyped-de
     )
 
     # =========================================================================
+    # MiniCPM-OCR 1.0 (openbmb/MiniCPM-OCR-1.0, 1.3B SigLIP + Qwen3.5)
+    # Official minicpmvocr SDK: PP-DocLayoutV3 regions recognized per label
+    # (HTML tables, LaTeX formulas, charts to tables) on a vLLM backend with
+    # DSpark speculative decoding. SDK Markdown plus classed region boxes.
+    # =========================================================================
+
+    register_fn(
+        PipelineSpec(
+            pipeline_name="minicpm_ocr_sdk",
+            provider_name="minicpm_ocr",
+            product_type=ProductType.PARSE,
+            config={
+                "server_url": "",  # Set via MINICPM_OCR_SERVER_URL or override
+            },
+        )
+    )
+
+    # =========================================================================
     # Databricks ai_parse_document
     # =========================================================================
 
